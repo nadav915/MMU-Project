@@ -190,7 +190,22 @@ public class MMUView extends Observable implements View {
 		btnPlayAll.setBounds(104, 180, 86, 25);
 		frame.getContentPane().add(btnPlayAll);
 		
-		
+		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				for (int i = 0; i < table.getRowCount(); i++)
+				      for(int j = 0; j < table.getColumnCount(); j++) {
+				          table.setValueAt("", i, j);
+				      }
+				playPageR=0;
+				textField_1.setText(playPageR.toString());
+				playPageF=0;
+				textField.setText(playPageF.toString());
+			}
+		});
+		btnClear.setBounds(202, 180, 97, 25);
+		frame.getContentPane().add(btnClear);
 		
 		frame.setResizable(false);
 		frame.setVisible(true);

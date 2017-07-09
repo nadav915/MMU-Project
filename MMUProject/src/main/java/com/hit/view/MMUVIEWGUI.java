@@ -13,6 +13,8 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MMUVIEWGUI {
 
@@ -99,6 +101,14 @@ public class MMUVIEWGUI {
 		table = new JTable();
 		table.setBounds(12, 13, 433, 154);
 		frame.getContentPane().add(table);
+		
+		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnClear.setBounds(202, 180, 97, 25);
+		frame.getContentPane().add(btnClear);
 		
 	}
 }
