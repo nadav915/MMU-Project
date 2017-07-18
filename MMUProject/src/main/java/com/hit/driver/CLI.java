@@ -18,9 +18,11 @@ public class CLI extends Observable implements Runnable,View{
 	public static String SECOND_CHANCE ="SECOND CHANCE";
 	public static String START = "START";
 	public static String STOP = "STOP";
+	public static String LOCAL = "LOCAL";
+	public static String REMOTE = "REMOTE";
 	public InputStreamReader reader;
 	public OutputStreamWriter writer;
-	public String arr[]=new String[2];
+	public String arr[]=new String[3];
 	
 	public CLI(InputStream in,OutputStream out)
 	{
@@ -42,27 +44,35 @@ public class CLI extends Observable implements Runnable,View{
 		
 		BufferedReader br = new BufferedReader(reader);
 		try {
+			write("Please enter START to start the program and STOP to stop it");
 			String commend =br.readLine();
 			while(!commend.equals(STOP))
 			{
 				if(commend.equals(START))
 				{
-					write("Please enter the requierd algorithem and RAM capacity");
+					write("Please enter the requierd algorithem and RAM capacity and REMOTE or LOCAL");
 					String commend2 = br.readLine();
 					int i = commend2.indexOf(" ");
 					String algo = commend2.substring(0,i);
-					String RamCapacity = commend2.substring(i+1);
-					while(!algo.equals(LRU)&&!algo.equals(LFU)&&!algo.equals(SECOND_CHANCE))
+					commend2 =commend2.substring(i+1);
+					 i = commend2.indexOf(" ");
+					String RamCapacity = commend2.substring(0,i);
+					String config =	commend2.substring(i+1);
+					while(!algo.equals(LRU)&&!algo.equals(LFU)&&!algo.equals(SECOND_CHANCE)&&!config.equals(REMOTE)&&!config.equals(LOCAL))
 					{
 						write("Not valid command...");
 						write("Please enter the requierd algorithem and RAM capacity");
 						commend2 = br.readLine();
 						i = commend2.indexOf(" ");
 						algo = commend2.substring(0,i);
-						RamCapacity = commend2.substring(i+1);
+						commend2 =commend2.substring(i+1);
+						i = commend2.indexOf(" ");
+						RamCapacity = commend2.substring(0,i);
+						config = commend2.substring(i+1);
 					}
 					arr[0]=algo;
 					arr[1]=RamCapacity;
+					arr[2]=config;
 					setChanged();
 					notifyObservers(arr);
 				}

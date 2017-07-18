@@ -4,11 +4,15 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import java.awt.Font;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Login {
 
@@ -80,6 +84,21 @@ public class Login {
 		frame.getContentPane().add(lblFileName);
 		
 		JButton btnNewButton = new JButton("Login");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+				String username = textField.getText();
+				String password = textField_1.getText();
+				String fileName = textField_2.getText();
+				}
+				catch (NullPointerException e) {
+					JOptionPane.showMessageDialog(frame, "Please fill all fileds");
+				}
+				
+				
+				
+			}
+		});
 		btnNewButton.setBounds(12, 215, 97, 25);
 		frame.getContentPane().add(btnNewButton);
 	}

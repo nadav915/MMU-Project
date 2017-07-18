@@ -1,19 +1,24 @@
 package com.hit.view;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class LoginView extends Observable implements View {
 
 	private JFrame frame;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JPasswordField textField_1;
 	private JTextField textField_2;
+	
 	
 	@Override
 	public void start() {
@@ -28,7 +33,7 @@ public class LoginView extends Observable implements View {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
+		textField_1 = new JPasswordField();
 		textField_1.setBounds(183, 115, 116, 22);
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
@@ -56,10 +61,46 @@ public class LoginView extends Observable implements View {
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.setBounds(12, 215, 97, 25);
 		frame.getContentPane().add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			try{
+			String comands[]=new String[3];
+			String username = textField.getText();
+			String password = String.valueOf(textField_1.getPassword());
+			String fileName = textField_2.getText();
+			comands[0]=username;
+			comands[1]=password;
+			comands[2]=fileName;
+			setChanged();
+			notifyObservers(comands);
+			}
+			catch (NullPointerException e) {
+				JOptionPane.showMessageDialog(frame, "Please fill all fileds");
+			}
+			
+		}
+	});
+		
 		
 		frame.setResizable(false);
 		frame.setVisible(true);
 
 	}
+	
+	public void putMassege(String messege)
+	{
+		JOptionPane.showMessageDialog(frame,messege);
+	}
 
+	public void clearFrame()
+	{
+		frame.setVisible(false);
+	}
+	public void clearTextfileds()
+	{
+		textField.setText("");
+		textField_1.setText("");
+		textField_2.setText("");
+	}
+	
 }

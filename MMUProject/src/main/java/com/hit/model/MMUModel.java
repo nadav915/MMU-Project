@@ -36,12 +36,20 @@ public static String CONFIG_FILE_NAME ="bin/com/hit/config/Configuration.json";
 public int numProcesses;
 public int ramCapacity;
 public static String[] configuration;	
-
+public static boolean remoteFlug;
 	public static RunConfiguration readConfigurationFile()
 	{
 		try{
+			if(remoteFlug==true){
+				RunConfiguration runConfig = new Gson().fromJson(new JsonReader(new FileReader("config1.json")),RunConfiguration.class);
+				System.out.println("I am using remote json");
+				return runConfig;
+			}
+			else{
 			RunConfiguration runConfig = new Gson().fromJson(new JsonReader(new FileReader(CONFIG_FILE_NAME)),RunConfiguration.class);
+			System.out.println("I am using local json");
 			return runConfig;
+			}
 		}
 		catch(FileNotFoundException e)
 		{
@@ -54,6 +62,14 @@ public static String[] configuration;
 		return null;
 	}
 	
+	public static boolean isRemoteFlug() {
+		return remoteFlug;
+	}
+
+	public static void setRemoteFlug(boolean remoteFlug) {
+		MMUModel.remoteFlug = remoteFlug;
+	}
+
 	public static void runProcesses(List<com.hit.processes.Process> applications)
 	{
 		try{
